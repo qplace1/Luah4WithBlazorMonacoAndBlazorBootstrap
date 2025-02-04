@@ -1,0 +1,53 @@
+﻿@page "/counter"
+@rendermode InteractiveWebAssembly
+
+@using System.IO
+@using System.Reflection
+@using Shared
+
+@inject HttpClient HttpClient
+@inject ILogger<Counter> Logger
+@inject IJSRuntime JSRuntime
+
+<PageTitle>WasmDemo</PageTitle>
+@if (isLoaded)
+{
+        @foreach (var file in fileDetails)
+        {
+                <TableEditor DataFile="@file"></TableEditor>
+                <br />
+        }
+}
+
+<div class="bg-dark text-white m-2">
+    <pre>Interactive: @this.RendererInfo.IsInteractive</pre>
+    <pre>Type: @this.RendererInfo.Name</pre>
+</div>
+
+@code {
+    private List<DataFile> fileDetails;
+    private bool isLoaded = false;
+
+    /*
+     <Tabs>
+     <Tab Title="@Path.GetFileNameWithoutExtension(file.FileName)">
+                     <div style="width:800px; height:400px;">
+                     <Content>
+                        <TableEditor FileDetails="@file" ScheduleId="@ScheduleId"></TableEditor>
+                    </Content>
+                    </div>
+                </Tab>
+     */
+
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        // var fileData = await HttpClient.GetFromJsonAsync<SharedDemoData.FileData>("api/filedata");
+        // FileName = fileData.Name;
+        fileDetails = await HttpClient.GetFromJsonAsync<List<DataFile>>($"api/files");
+        isLoaded = true;
+        Logger.LogInformation("init");
+    }
+
+}

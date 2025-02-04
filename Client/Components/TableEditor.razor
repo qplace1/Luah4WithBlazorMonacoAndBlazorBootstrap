@@ -1,0 +1,38 @@
+﻿@using System.Text.Json
+@using Microsoft.AspNetCore.Components
+@using Shared
+
+@inject HttpClient HttpClient
+
+<h4>@DataFile.FileName</h4>
+<div class="card card-body example-spacing" style="width: fit-content; background-color: #cff4fc;">
+    <MonacoEditor ElementId="@DataFile.FileName"
+    @ref="_monacoEditorInstance"
+    Language="Language.Json"
+    Style="width:800px; height:400px" />
+</div>
+
+@code {
+    [Parameter] public DataFile DataFile { get; set; }
+
+    private MonacoEditor _monacoEditorInstance = null!;
+    private EditorOptions _editorOptions = new();
+    private bool _initialized = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+    }
+
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        return; // can't find the reliable way to initialize MonacoEditor content
+
+            if ( (_monacoEditorInstance != null) && (! _initialized))
+            {
+                await _monacoEditorInstance.SetEditorContent(string.Join("\n", DataFile.Content));
+                return;
+            }
+    }
+}
