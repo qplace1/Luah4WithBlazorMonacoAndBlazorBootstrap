@@ -17,22 +17,18 @@
 
     private MonacoEditor _monacoEditorInstance = null!;
     private EditorOptions _editorOptions = new();
-    private bool _initialized = false;
 
-    protected override async Task OnInitializedAsync()
+    protected override Task OnInitializedAsync()
     {
-        await base.OnInitializedAsync();
+        return base.OnInitializedAsync();
     }
-
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        return; // can't find the reliable way to initialize MonacoEditor content
+        if ( (_monacoEditorInstance != null) )
+        {
+            //            await _monacoEditorInstance.SetEditorContent(string.Join("\n", DataFile.Content));
 
-            if ( (_monacoEditorInstance != null) && (! _initialized))
-            {
-                await _monacoEditorInstance.SetEditorContent(string.Join("\n", DataFile.Content));
-                return;
-            }
+        }
     }
 }

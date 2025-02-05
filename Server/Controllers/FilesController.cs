@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 using Shared;
 
-namespace Luah4.Schedule.Controllers
+namespace Controllers
 {
     [ApiController]
     [Route("api/files")]
@@ -24,7 +24,7 @@ namespace Luah4.Schedule.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<DataFile>>> GetFiles(int scheduleId)
+        public async Task<ActionResult<List<DataFile>>> GetFiles()
         {
             return Ok(DataFiles);
         }

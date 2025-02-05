@@ -25,29 +25,13 @@
 </div>
 
 @code {
-    private List<DataFile> fileDetails;
+    private List<DataFile> fileDetails = new List<DataFile>();
     private bool isLoaded = false;
-
-    /*
-     <Tabs>
-     <Tab Title="@Path.GetFileNameWithoutExtension(file.FileName)">
-                     <div style="width:800px; height:400px;">
-                     <Content>
-                        <TableEditor FileDetails="@file" ScheduleId="@ScheduleId"></TableEditor>
-                    </Content>
-                    </div>
-                </Tab>
-     */
-
 
 
     protected override async Task OnInitializedAsync()
     {
-        // var fileData = await HttpClient.GetFromJsonAsync<SharedDemoData.FileData>("api/filedata");
-        // FileName = fileData.Name;
         fileDetails = await HttpClient.GetFromJsonAsync<List<DataFile>>($"api/files");
         isLoaded = true;
-        Logger.LogInformation("init");
     }
-
 }
