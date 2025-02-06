@@ -10,13 +10,10 @@
 @inject IJSRuntime JSRuntime
 
 <PageTitle>WasmDemo</PageTitle>
-@if (isLoaded)
+@foreach (var file in fileDetails)
 {
-        @foreach (var file in fileDetails)
-        {
-                <TableEditor DataFile="@file"></TableEditor>
-                <br />
-        }
+    <TableEditor DataFile="@file"></TableEditor>
+    <br />
 }
 
 <div class="bg-dark text-white m-2">
@@ -26,12 +23,9 @@
 
 @code {
     private List<DataFile> fileDetails = new List<DataFile>();
-    private bool isLoaded = false;
-
 
     protected override async Task OnInitializedAsync()
     {
         fileDetails = await HttpClient.GetFromJsonAsync<List<DataFile>>($"api/files");
-        isLoaded = true;
     }
 }

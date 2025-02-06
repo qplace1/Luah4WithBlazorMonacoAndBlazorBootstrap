@@ -10,10 +10,11 @@ namespace Controllers
     public class FilesController : ControllerBase
     {
         private readonly List<DataFile> DataFiles = new List<DataFile>();
+        private int NumFiles = 10;
 
         public FilesController()
         {
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < NumFiles; i++)
             {
                 DataFile file = new DataFile();
                 file.FileName = $"File {i + 1}";
