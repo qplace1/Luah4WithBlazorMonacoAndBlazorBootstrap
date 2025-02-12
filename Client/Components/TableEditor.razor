@@ -7,9 +7,11 @@
 <h4>@DataFile.FileName</h4>
 <div class="card card-body example-spacing" style="width: fit-content; background-color: #cff4fc;">
     <MonacoEditor ElementId="@DataFile.FileName"
-    @ref="_monacoEditorInstance"
+                  ScriptContent="@(string.Join("\n", DataFile.Content))"
+                  @ref="_monacoEditorInstance"
     Language="Language.Json"
     Style="width:800px; height:400px" />
+
 </div>
 
 @code {
