@@ -1,33 +1,26 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-
+﻿using Microsoft.AspNetCore.Mvc;
 using Shared;
+using Shared.Interfaces;
+using Shared.Services;
 
-namespace Controllers
+namespace Server.Controllers
 {
     [ApiController]
     [Route("api/files")]
     public class FilesController : ControllerBase
     {
-        private readonly List<DataFile> DataFiles = new List<DataFile>();
-        private int NumFiles = 10;
+        private readonly IDataFileService _dataFileService;
 
-        public FilesController()
+        public FilesController(IDataFileService dataFileService)
         {
-            for (int i = 0; i < NumFiles; i++)
-            {
-                DataFile file = new DataFile();
-                file.FileName = $"File {i + 1}";
-                for (int j = 0; j < 20; ++j)
-                    file.Content.Add($"Line {j + 1}");
-                DataFiles.Add(file);
-            }
+            _dataFileService = dataFileService;
         }
 
         [HttpGet]
         public async Task<ActionResult<List<DataFile>>> GetFiles()
         {
-            return Ok(DataFiles);
+            var dataFiles = await _dataFileService.GetFiles();
+            return Ok(dataFiles);
         }
     }
 

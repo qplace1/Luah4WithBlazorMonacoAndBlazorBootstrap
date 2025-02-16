@@ -20,10 +20,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Client\Client.csproj" />
-    <ProjectReference Include="..\Shared\Shared.csproj" />
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Components\Layout\" />
     <Folder Include="wwwroot\dll\" />
   </ItemGroup>
 

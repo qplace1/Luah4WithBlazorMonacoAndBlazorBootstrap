@@ -1,11 +1,13 @@
 ﻿@page "/counter"
-@rendermode InteractiveWebAssembly
+@rendermode @(new InteractiveWebAssemblyRenderMode(true))
 
 @using System.IO
 @using System.Reflection
+@using Shared.Interfaces
+@using Shared.Services
 @using Shared
 
-@inject HttpClient HttpClient
+@inject IDataFileService DataFileService
 @inject ILogger<Counter> Logger
 @inject IJSRuntime JSRuntime
 
@@ -26,6 +28,6 @@
 
     protected override async Task OnInitializedAsync()
     {
-        fileDetails = await HttpClient.GetFromJsonAsync<List<DataFile>>($"api/files");
+        fileDetails = await DataFileService.GetFiles(10)??[];
     }
 }
