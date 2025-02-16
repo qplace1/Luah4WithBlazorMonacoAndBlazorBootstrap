@@ -1,0 +1,27 @@
+﻿@page "/OneFile"
+@rendermode InteractiveAuto
+@using Shared.Interfaces
+@using Shared.Services
+@using Blazor.Monaco
+@using Blazor.Client.Components
+@inject IDataFileService DataFileService
+<h3>OneFile</h3>
+<p>Showing @(_fileDetails.Count) files.</p>
+
+@foreach (var file in _fileDetails)
+{
+    <p>@file.FileName</p>
+    <TableEditor DataFile="@file"/>
+}
+
+@code {
+
+    private List<DataFile> _fileDetails = new List<DataFile>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        _fileDetails.Clear();
+        _fileDetails = await DataFileService.GetFiles(1) ?? [];
+    }
+
+}

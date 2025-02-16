@@ -1,0 +1,20 @@
+﻿@using Shared
+@using Shared.Services
+@using Blazor.Monaco
+
+
+<h4>@DataFile.FileName</h4>
+
+<div class="card card-body example-spacing" style="width: fit-content; background-color: #cff4fc;">
+    <MonacoEditor ElementId="@DataFile.FileName"
+                  ScriptContent="@(string.Join("\n", DataFile.Content))"
+                  
+    Language="Language.PlainText"
+    Style="width:800px; height:400px" />
+
+</div>
+
+@code {
+    [Parameter] public required DataFile DataFile { get; set; }
+
+}
