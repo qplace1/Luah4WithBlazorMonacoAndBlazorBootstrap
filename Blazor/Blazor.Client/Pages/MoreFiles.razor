@@ -1,0 +1,27 @@
+﻿@page "/MoreFiles"
+@rendermode InteractiveAuto
+@using Shared.Interfaces
+@using Shared.Services
+@using Blazor.Client.Components
+@inject IDataFileService DataFileService
+<h3>MoreFiles</h3>
+<p>Showing @(_moreFileDetails.Count) files.</p>
+@foreach (var file in _moreFileDetails)
+{
+    <p>@file.FileName</p>
+    <TableEditor DataFile="@file" />
+}
+
+@code {
+    private int _defaultFileCount = 8;
+
+    private List<DataFile> _moreFileDetails = [];
+
+    protected override async Task OnInitializedAsync()
+    {
+        _moreFileDetails.Clear();
+        _moreFileDetails = await DataFileService.GetFiles(_defaultFileCount) ?? [];
+    }
+
+
+}

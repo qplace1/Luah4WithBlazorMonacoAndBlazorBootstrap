@@ -2,6 +2,11 @@ using Microsoft.EntityFrameworkCore;
 using Server.Components;
 using Client.Pages;
 using Blazor.Monaco;
+using Client;
+using Server;
+using Shared;
+using Shared.Interfaces;
+using Shared.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,7 +14,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents()
     .AddInteractiveWebAssemblyComponents();
-builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.Configuration["BaseApiUrl"] ?? "wrong_url") });
+
+builder.Services.AddScoped<IDataFileService, DataFileServerService>();
 
 builder.Services.AddBlazorBootstrap();
 builder.Services.AddBlazorMonacoComponents();
