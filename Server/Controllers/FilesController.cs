@@ -10,7 +10,7 @@ namespace Controllers
     public class FilesController : ControllerBase
     {
         private readonly List<DataFile> DataFiles = new List<DataFile>();
-        private int NumFiles = 10;
+        private int NumFiles = 1;
 
         public FilesController()
         {

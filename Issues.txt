@@ -2,3 +2,6 @@
 Added <CompressionEnabled>false</CompressionEnabled> to server project. There is some weird issue with blazor.json, you can try to remove the flag and see the errors in console
 File Client->TableEditor.razor. Try to uncomment the set up of MonacoEditor content and observe the errors
 When Counter.razor is shown, switch to Home and back to Counter, observe the change in page rendering
+
+2/9/25
+Review by Johan
